@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: caddy
+  labels:
+    name: caddy
+spec:
+  containers:
+    - resources:
+        limits:
+          cpu: 0.5
+      image: abiosoft/caddy
+      name: caddy
+      #env:
+        #- name: MYSQL_ROOT_PASSWORD
+          # Change this password!
+          #value: yourpassword
+      ports:
+        - containerPort: 2015
+          name: mysql
+      volumeMounts:
+          # This name must match the volumes.name below.
+        - name: caddy-persistent-storage
+          mountPath: /srv
+  volumes:
+    - name: caddy-persistent-storage
+      gcePersistentDisk:
+        # This disk must already exist.
+        pdName: datadisk-cluster
+        fsType: ext4
