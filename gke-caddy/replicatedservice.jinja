@@ -56,7 +56,7 @@ resources:
             name: {{ NAME_PREFIX }}
         spec:
           containers:
-            - name: container
+            - name: {{ NAME_PREFIX }}-container
               image: {{ properties['image'] }}
               ports:
                 - containerPort: {{ PORT }}
@@ -70,3 +70,4 @@ resources:
               # This disk must already exist.
                 pdName: datadisk-cluster
                 fsType: ext4
+                #readOnly: true
